@@ -3,6 +3,8 @@ import * as Yup from 'yup';
 import { customAlphabet } from 'nanoid';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import { addContact } from 'redux/contactsSlice';
 import { Container, Input, Label, Wrapper, ErrorMsg, Btn } from './ContactForm.styled';
 
 const nanoid = customAlphabet('1234567890', 3);
@@ -18,7 +20,10 @@ const initialValues = {
   number: '',
 };
 
-export const ContactForm = ({ onSubmit }) => {
+export const ContactForm = () => {
+  const dispatch = useDispatch();
+  const value = useSelector(state => state.contacts);
+
   const handleSubmit = (values, { resetForm }) => {
     const newContact = {
       id: 'id-' + nanoid(),
@@ -26,7 +31,7 @@ export const ContactForm = ({ onSubmit }) => {
       number: values.number,
     };
 
-    onSubmit(newContact);
+    dispatch(addContact(newContact));
     resetForm();
   };
 
@@ -52,5 +57,3 @@ export const ContactForm = ({ onSubmit }) => {
     </>
   );
 };
-
-ContactForm.propTypes = { onSubmit: PropTypes.func.isRequired };

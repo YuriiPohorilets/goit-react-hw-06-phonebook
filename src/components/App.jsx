@@ -16,23 +16,23 @@ export const App = () => {
     localStorage.setItem(LS_KEY, JSON.stringify(contacts));
   }, [contacts]);
 
-  const handlerSubmit = newContact => {
-    setContacts(prevContacts => {
-      if (prevContacts.find(contact => contact.name === newContact.name)) {
-        alert(`${newContact.name} is already in contacts`);
-        return prevContacts;
-      }
-      return [newContact, ...prevContacts];
-    });
-  };
+  // const handlerSubmit = newContact => {
+  //   setContacts(prevContacts => {
+  //     if (prevContacts.find(contact => contact.name === newContact.name)) {
+  //       alert(`${newContact.name} is already in contacts`);
+  //       return prevContacts;
+  //     }
+  //     return [newContact, ...prevContacts];
+  //   });
+  // };
 
   const onFilter = e => {
     setFilter(e.currentTarget.value);
   };
 
-  const deleteContact = contactId => {
-    setContacts(prevContacts => prevContacts.filter(contact => contact.id !== contactId));
-  };
+  // const deleteContact = contactId => {
+  //   setContacts(prevContacts => prevContacts.filter(contact => contact.id !== contactId));
+  // };
 
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
@@ -41,11 +41,11 @@ export const App = () => {
   return (
     <Container>
       <Title>Phonebook</Title>
-      <ContactForm onSubmit={handlerSubmit} />
+      <ContactForm />
 
       <Subtitle>Contacts</Subtitle>
       <Filter value={filter} onFilter={onFilter} />
-      <ContactList deleteContact={deleteContact} contacts={filteredContacts} />
+      <ContactList contacts={filteredContacts} />
     </Container>
   );
 };
