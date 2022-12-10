@@ -1,10 +1,12 @@
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { customAlphabet } from 'nanoid';
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { addContact } from 'redux/contactsSlice';
+import { getContacts } from 'redux/selectors';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+import * as Yup from 'yup';
+import { Formik } from 'formik';
+import { customAlphabet } from 'nanoid';
 import { Container, Input, Label, Wrapper, ErrorMsg, Btn } from './ContactForm.styled';
 
 const nanoid = customAlphabet('1234567890', 3);
@@ -22,7 +24,7 @@ const initialValues = {
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  const value = useSelector(state => state.contacts);
+  const contacts = useSelector(getContacts);
 
   const handleSubmit = (values, { resetForm }) => {
     const newContact = {
@@ -30,6 +32,10 @@ export const ContactForm = () => {
       name: values.name,
       number: values.number,
     };
+
+    if (contacts.find(contact => contact.name === newContact.name)) {
+      return toast.error(`${newContact.name} is already in contacts`);
+    }
 
     dispatch(addContact(newContact));
     resetForm();
@@ -54,6 +60,7 @@ export const ContactForm = () => {
           <Btn type="submit">Add contact</Btn>
         </Container>
       </Formik>
+      <ToastContainer />
     </>
   );
 };
