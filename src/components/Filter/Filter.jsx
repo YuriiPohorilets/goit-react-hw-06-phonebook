@@ -6,7 +6,6 @@ import { Wrapper, Label, Input } from './Filter.styled';
 export const Filter = () => {
   const dispatch = useDispatch();
   const filter = useSelector(getContactFilter);
-  console.log(filter);
 
   return (
     <Wrapper>

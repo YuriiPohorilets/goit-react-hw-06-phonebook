@@ -26,6 +26,7 @@ export const Name = styled.span`
   font-size: 22px;
   color: var(--primary);
   text-shadow: var(--main-shadow);
+  text-transform: capitalize;
 
   flex-basis: 33.333%;
 `;

@@ -32,6 +32,7 @@ export const Input = styled(Field)`
 
   font-size: 24px;
   color: var(--primary);
+  // text-transform: capitalize;
 
   background-color: transparent;
   border: none;
